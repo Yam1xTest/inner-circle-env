@@ -1,0 +1,15 @@
+name: Deploy to Prod
+
+on:
+  push:
+
+jobs:
+  deploy-to-prod:
+    runs-on: self-hosted
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+
+      - name: Deploy
+        run: |
+          helmfile cache cleanup && helmfile apply --suppress-diff --namespace prod --environment prod -f deploy/helmfile.yaml
