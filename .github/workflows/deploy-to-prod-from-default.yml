@@ -13,3 +13,5 @@ jobs:
       - name: Deploy
         run: |
           helmfile cache cleanup && helmfile apply --suppress-diff --namespace prod --environment prod -f deploy/helmfile.yaml
+        env:
+          INNER_CIRCLE_PROD_LETS_ENCRYPT_EMAIL: ${{ secrets.secretmailtest }}
