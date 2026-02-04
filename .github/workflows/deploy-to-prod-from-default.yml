@@ -14,6 +14,8 @@ jobs:
 
       - name: Deploy
         run: |
-          helmfile cache cleanup && helmfile apply --suppress-diff --namespace  ${{ secrets.INNER_CIRCLE_PROD_NAMESPACE }} -f deploy/helmfile.yaml > /dev/null
+          helmfile cache cleanup && helmfile apply --suppress-diff --namespace  ${{ secrets.INNER_CIRCLE_PROD_NAMESPACE }} -f deploy/helmfile.yaml \
+          --state-values-set global.postgresql.auth.postgresPassword="$INNER_CIRCLE_PROD_POSTGRES_PASSWORD" > /dev/null 2>&1
         env:
           INNER_CIRCLE_PROD_LETS_ENCRYPT_EMAIL: ${{ secrets.INNER_CIRCLE_PROD_LETS_ENCRYPT_EMAIL }}
+          INNER_CIRCLE_PROD_POSTGRES_PASSWORD: ${{ secrets.INNER_CIRCLE_PROD_POSTGRES_PASSWORD }}

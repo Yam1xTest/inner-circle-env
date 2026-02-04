@@ -1,0 +1,10 @@
+global:
+  postgresql:
+    auth:
+      postgresPassword: "{{ .StateValues.global.postgresql.auth.postgresPassword }}"
+
+image:
+  repository: bitnamilegacy/postgresql
+  # We use digest instead of image tag to eliminate any breakdowns in case the image was changed under the "14" tag
+  # this digest was taken from https://hub.docker.com/layers/bitnamilegacy/postgresql/14
+  digest: sha256:1487d8c274877c8b241c46edfc7d17abaa32a16ec7a4305b45dbf9104a6bb45f

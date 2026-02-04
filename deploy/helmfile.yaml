@@ -5,6 +5,8 @@ repositories:
     url: https://kubernetes-sigs.github.io/metrics-server
   - name: jetstack
     url: https://charts.jetstack.io
+  - name: bitnami
+    url: https://mirror.yandex.ru/helm/charts.bitnami.com
 
 environments:
   prod:
@@ -48,3 +50,12 @@ releases:
         command: "sh"
         # envsubst tool is used to replace env variables in file with their values
         args: ["-c", "envsubst < ./cert-manager-cluster-issuer.yaml | kubectl apply -f -"]
+
+  - name: postgresql
+    labels:
+      app: postgresql
+    wait: true
+    chart: bitnami/postgresql
+    version: 12.2.7
+    values:
+      - values-postgresql.yaml.gotmpl
